@@ -60,6 +60,9 @@
         <a href="{{ route('students.create') }}">
             <button class="btn btn-info">Create New Student</button>
         </a>
+        <a href="{{ route('students.courses') }}">
+            <button class="btn btn-info">Courses</button>
+        </a>
     </div>
 </div>
 @endsection
