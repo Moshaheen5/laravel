@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->integer('age');
-            $table->enum('gender',['female','male']);
-            $table->timestamps(); 
+            $table->string('name',100);
+            $table->string('email')->unique()->nullable();
+            $table->integer('grade')->default(0);
+            $table->enum('gender',['male','female'])->default('male');
+            $table->string('image')->nullable();
+            $table->string('address');
 
+            $table->timestamps();
         });
-
     }
 
     /**
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('student');
     }
 };

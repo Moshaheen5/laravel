@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('track', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('name',150);
-            $table->integer('hours');
-            $table->date('startDate');
+            $table->string('name',100);
+            $table->integer('totalgrade')->default(100);
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('track');
+        Schema::dropIfExists('courses');
     }
 };
