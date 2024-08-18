@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tracks', function (Blueprint $table) {
+        Schema::create('track', function (Blueprint $table) {
             $table->id();
             $table->string('name',150);
             $table->string('location')->unique();
             $table->integer('coursesnumber')->default(4);
             $table->enum('type',['php','dotnet'])->default('php');
+            $table->string('image')->nullable();
             $table->string('phone');
             $table->timestamps();
         });

@@ -1,61 +1,77 @@
-@extends('layouts.layout')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update Student</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<x-NAV>Students</x-NAV>
+    <h1 class="text-center text-info m-5">Update Student {{$student->id}}</h1>
 
+    <form class="border p-2 bordered w-75 m-auto" method="post" action="{{ route('students.update', $student->id) }}" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 
-@section('content')
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="text-info text-center mb-4">Edit Student</h1>
-                    
-                    
-                    <form action="{{ route('students.update', $student->id) }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $student->name) }}" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $student->email) }}" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" value="{{ old('address', $student->address) }}" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="gender" class="form-label">Gender</label>
-                            <input type="text" class="form-control" id="gender" name="gender" value="{{ old('gender', $student->gender) }}" required>
-                        </div>
-                        
-                        <div class="mb-3 text-center">
-                            <label for="current_image" class="form-label">Current Picture</label>
-                            <div>
-                                <img src="{{ asset('uploads/students/' . $student->image) }}" alt="Student Image" width="150" height="150" class="img-thumbnail">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Upload New Picture (optional)</label>
-                            <input type="file" class="form-control" id="image" name="image">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="grade" class="form-label">Grade</label>
-                            <input type="text" class="form-control" id="grade" name="grade" value="{{ old('grade', $student->grade) }}" required>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary w-100">Update</button>
-                    </form>
-                </div>
-            </div>
+        @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="mb-3">
+            <label for="exampleInputName1" class="form-label">Name</label>
+            <input name="name" type="text" class="form-control" id="exampleInputName1" value="{{ old('name', $student->name) }}">
         </div>
-    </div>
-</div>
 
-@endsection
+        @error('email')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input name="email" type="email" class="form-control" id="exampleInputEmail1" value="{{ old('email', $student->email) }}">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+
+        @error('grade')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="mb-3">
+            <label for="exampleInputGrade1" class="form-label">Grade</label>
+            <input name="grade" type="number" class="form-control" id="exampleInputGrade1" value="{{ old('grade', $student->grade) }}">
+        </div>
+
+        @error('image')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="mb-3">
+            <label for="exampleInputImage1" class="form-label">Image</label>
+            <input name="image" type="file" class="form-control" id="exampleInputImage1">
+        </div>
+
+        @error('address')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="mb-3">
+            <label for="exampleInputAddress1" class="form-label">Address</label>
+            <input name="address" type="text" class="form-control" id="exampleInputAddress1" value="{{ old('address', $student->address) }}">
+        </div>
+
+        @error('gender')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <label class="form-check-label" for="flexRadioDefault1">Gender</label>
+        <div class="form-check">
+            <input name="gender" class="form-check-input" type="radio" id="flexRadioDefault1" value="male" {{ old('gender', $student->gender) == 'male' ? 'checked' : '' }}>
+            <label class="form-check-label" for="flexRadioDefault1">Male</label>
+        </div>
+        <div class="form-check">
+            <input name="gender" class="form-check-input" type="radio" id="flexRadioDefault2" value="female" {{ old('gender', $student->gender) == 'female' ? 'checked' : '' }}>
+            <label class="form-check-label" for="flexRadioDefault2">Female</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

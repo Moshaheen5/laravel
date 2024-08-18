@@ -9,7 +9,7 @@
 </head>
 <body>
 <x-NAV>Update Track</x-NAV>
-    <h1 class="text-center text-bold m-5">Update Track {{$track->id}}</h1>
+    <h1 class="text-center text-bold m-5">Update Track {{$track->name}}</h1>
 
     <form class="border p-2 bordered w-75 m-auto" method="post" action="{{ route('tracks.update', $track->id) }}" enctype="multipart/form-data">
         @csrf

@@ -11,7 +11,7 @@
 </head>
 <body>
 <x-NAV>Tracks</x-NAV>
-<h1 class="text-bold w-50 mt-5 m-auto"> All Tracks Data</h1>
+<h1 class="text-bold  mt-5 text-center text-info"> All Tracks Data</h1>
 <table class="table w-75 m-auto table-bordered mt-5">
     <thead>
         <tr>
@@ -51,17 +51,17 @@
                     </form>
 
                     
-                    <a href="{{ route('tracks.create', $track->id) }}" class="btn btn-info">Create</a>
-
+                    
+                    <a href="{{ route('tracks.create', $track->id) }}" class="btn btn-info  text-center">Create</a>
                     
                     <a href="{{ route('tracks.edit', $track->id) }}" class="btn btn-warning">Update</a>
                 </td>
-
+                
             </tr>
-        @endforeach
-
-
-
+            @endforeach
+            
+            
+            
     </tbody>
 </table>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

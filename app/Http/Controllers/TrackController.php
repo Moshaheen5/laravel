@@ -24,9 +24,9 @@ class TrackController extends Controller
     function show($id)
     {
       $track=Track::find($id);
-      $courses =$track->coursesnumber;
+      $courses =$track->courses;
       $students =$track->students;
-      return view('tracks.trackData',compact("tracks" , "courses" , "students"));
+      return view('tracks.trackData',compact("track" , "courses" , "students"));
     }
 
    

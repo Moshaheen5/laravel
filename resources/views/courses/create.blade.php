@@ -1,59 +1,72 @@
-@extends('layouts.layout')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<x-NAV>  Courses</x-NAV>
+    <h1 class="text-center text-bold m-5">Create New Course </h1>
 
-
-
-@section('content')
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="text-center text-info mb-4">Create New Course</h1>
-                    
-                    <form method="post" action="{{ route('courses.store') }}" enctype="multipart/form-data">
-                        @csrf
-                        
-                        <div class="mb-3">
-                            <label for="exampleInputName1" class="form-label">Name</label>
-                            <input name="name" type="text" class="form-control" id="exampleInputName1" >
-                            @error('name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">description</label>
-                            <input name="description" type="text" class="form-control" id="exampleInputLocation1" >
-                            @error('description')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                           
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleInputgrade1" class="form-label">total_degree</label>
-                            <input name="total_degree" type="number" class="form-control" id="exampleInputsuper_v1" >
-                            @error('total_degree')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                       
-
-                      
-
-                        
-                       
-                       
-
-                        <button type="submit" class="btn btn-primary w-100 mt-4">Create</button>
-                    </form>
-                </div>
-            </div>
+    {{--
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-    </div>
-</div>
+    @endif --}}
+
+    <form class="border p-2 bordered w-75 m-auto" method="post" action="{{route('courses.store')}}" >
+        @csrf
+        
+      
+
+        @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="mb-3">
+          <label for="exampleInputName1" class="form-label">Name</label>
+          <input name="name" type="text" class="form-control" id="exampleInputName1" aria-describedby="NameHelp">
+        </div>
+
+        @error('description')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+    
+        <div class="mb-3">
+          <label for="exampleInputLocation1" class="form-label">Description</label>
+          <input name="description" type="text" class="form-control" id="exampleInputLocation1" aria-describedby="LocationHelp">
+        </div>
+        
+
+        @error('totalgrade')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="mb-3">
+          <label for="exampleInputCN1" class="form-label">Total Grade</label>
+          <input name="totalgrade" type="number" class="form-control" id="exampleInputCN1" aria-describedby="CNHelp">
+        </div>
+        
+        
+        <div class="mb-3">
+          <label for="exampleInputType1" class="form-label">Track Name  </label>
+          <select name="track_id"  class="form-control" >
+            @foreach ($tracks as $track )
+                <option value="{{$track->id}}">{{$track->name}}</option>
+            @endforeach
+          </select>
+        </div>
 
 
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
 
-@endsection
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

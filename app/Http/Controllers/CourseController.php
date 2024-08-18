@@ -1,30 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CourseResource;
+
 use App\Models\Course;
+use App\Models\Track;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
 
 class CourseController extends Controller
 {
     public function index()
     {
-        $courses=Course::all();
-        return CourseResource::collection($courses);
+        $courses=Course::orderBy('id',"asc")->paginate(5);
+        return view('courses.coursesData',compact("courses"));
     }
 
-    public function show($id)
-     {
-       $course=Course::findOrFail($id);
-       return new CourseResource($course);
-     }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('courses.create' , ['tracks' =>Track::all()]);
+    }
 
-
-     function store( Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    function store( Request $request)
     {
 
         $validator = Validator::make($request->all(), [
@@ -53,15 +56,37 @@ class CourseController extends Controller
        'totalgrade' => $request->totalgrade,
        'track_id' => $request->track_id,
       ]);
-      
-      return CourseResource::collection(Course::all());
-
+      return to_route('courses.index');
     }
    
 
-  
+    /**
+     * Display the specified resource.
+     */
+
+    
+     function show($id)
+     {
+       $course=Course::findOrFail($id);
+       return view('courses.courseData',compact("course"));
+     }
+ 
   
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+{
+    $course = Course::findOrFail($id);  
+    $tracks = Track::all();             
+
+    return view('courses.update', compact('course', 'tracks'));
+}
+
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -84,12 +109,22 @@ class CourseController extends Controller
     
         $Course =Course::findOrFail($id);
     
-        $Course->update($request->all());
-      
+       
+       
+    
+       
+        $Course->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'totalgrade' => $request->totalgrade,
+            'track_id' => $request->track_id,
+           
+        ]);
+    
+       
         $Course->save();
     
-        return new CourseResource($Course);
-
+        return redirect()->route('Courses.index');
     }
 
     
@@ -97,7 +132,8 @@ class CourseController extends Controller
     {
         $course=Course::findOrFail($id);
          $course->delete();
-         return CourseResource::collection(Course::all());
-
+         return to_route('courses.index');
     }
+
+   
 }
